@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Test - 5G Gaming Platform</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #00D4FF;
+            margin-bottom: 30px;
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .test-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+        .test-card h3 {
+            color: #FFD700;
+            margin-bottom: 15px;
+        }
+        .test-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .test-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #00D4FF, #0099CC);
+            color: #000;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .test-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
+        }
+        .info {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #00FF88;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .status {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 5G Gaming Platform Navigation Test</h1>
+
+        <div class="info">
+            <h3>📋 Test Instructions</h3>
+            <p>Click the links below to test navigation between different pages. Each page should maintain the cyberpunk design theme and allow seamless navigation.</p>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-card">
+                <h3>🏠 Main Lobby</h3>
+                <p>Home page with carousel, user info, and game cards</p>
+                <div class="test-links">
+                    <a href="redesigned-lobby.html" class="test-link">Go to Lobby</a>
+                </div>
+            </div>
+
+            <div class="test-card">
+                <h3>🏆 Ranking & Profile</h3>
+                <p>Leaderboard and user profile management</p>
+                <div class="test-links">
+                    <a href="ranking-profile-pages.html" class="test-link">Go to Ranking</a>
+                    <a href="ranking-profile-pages.html#profile" class="test-link">Go to Profile</a>
+                </div>
+            </div>
+
+            <div class="test-card">
+                <h3>ℹ️ Info & Buy Coins</h3>
+                <p>Platform information and coin purchase</p>
+                <div class="test-links">
+                    <a href="info-buycoins-pages.html" class="test-link">Go to Info</a>
+                    <a href="info-buycoins-pages.html#buycoins" class="test-link">Go to Buy Coins</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="status">
+            <h3>✅ Navigation Features Implemented</h3>
+            <ul style="text-align: left; display: inline-block;">
+                <li>Cross-page navigation with proper links</li>
+                <li>Hash-based routing for sub-pages</li>
+                <li>Consistent bottom navigation across all pages</li>
+                <li>Active state management</li>
+                <li>Responsive design maintained</li>
+                <li>Cyberpunk theme consistency</li>
+            </ul>
+        </div>
+
+        <div class="info">
+            <h3>🎯 Test Scenarios</h3>
+            <ol>
+                <li><strong>Basic Navigation:</strong> Click between different main sections</li>
+                <li><strong>Hash Navigation:</strong> Use direct links to sub-pages (Profile, Buy Coins)</li>
+                <li><strong>Bottom Navigation:</strong> Use the bottom nav bar to switch between pages</li>
+                <li><strong>Back Navigation:</strong> Use browser back button to return to previous pages</li>
+                <li><strong>Responsive Design:</strong> Test on different screen sizes</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Simple analytics for testing
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎮 5G Gaming Platform Navigation Test Ready');
+
+            // Track link clicks
+            const testLinks = document.querySelectorAll('.test-link');
+            testLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    console.log(`🔗 Navigating to: ${this.href}`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

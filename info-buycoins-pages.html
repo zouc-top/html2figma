@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5G Gaming Live Platform - Info & Buy Coins</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 科技感设计系统变量 */
+        :root {
+            /* 科技感主色调 */
+            --primary-cyber: #00D4FF;
+            --primary-cyber-dark: #0099CC;
+            --primary-neon: #FF0080;
+            --primary-gold: #FFD700;
+            --primary-electric: #00FF88;
+
+            /* 渐变系统 */
+            --gradient-cyber: linear-gradient(135deg, #00D4FF 0%, #0099CC 50%, #0066FF 100%);
+            --gradient-neon: linear-gradient(135deg, #FF0080 0%, #FF0040 50%, #CC0066 100%);
+            --gradient-gold: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
+            --gradient-electric: linear-gradient(135deg, #00FF88 0%, #00CC66 50%, #009944 100%);
+            --gradient-plasma: linear-gradient(135deg, #FF00FF 0%, #00FFFF 50%, #FFFF00 100%);
+
+            /* 全息背景 */
+            --bg-hologram: linear-gradient(135deg,
+                rgba(0, 0, 0, 0.95) 0%,
+                rgba(11, 11, 26, 0.98) 25%,
+                rgba(22, 33, 62, 0.95) 50%,
+                rgba(11, 11, 26, 0.98) 75%,
+                rgba(0, 0, 0, 0.95) 100%);
+
+            /* 卡片系统 */
+            --bg-card-glass: rgba(255, 255, 255, 0.05);
+            --bg-card-cyber: rgba(0, 212, 255, 0.1);
+            --bg-card-neon: rgba(255, 0, 128, 0.1);
+
+            /* 文字系统 */
+            --text-primary: #FFFFFF;
+            --text-cyber: #00D4FF;
+            --text-neon: #FF0080;
+            --text-gold: #FFD700;
+            --text-electric: #00FF88;
+
+            /* 阴影系统 */
+            --shadow-cyber: 0 0 30px rgba(0, 212, 255, 0.5);
+            --shadow-neon: 0 0 30px rgba(255, 0, 128, 0.5);
+            --shadow-gold: 0 0 30px rgba(255, 215, 0, 0.5);
+            --shadow-hologram: 0 10px 40px rgba(0, 0, 0, 0.6);
+
+            /* 动画变量 */
+            --animation-speed: 0.3s;
+            --animation-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+            /* 间距系统 */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+
+            /* 字体系统 */
+            --font-main: 'Inter', sans-serif;
+            --font-tech: 'Orbitron', monospace;
+        }
+
+        /* 全局重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-hologram);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 全息背景动画 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 128, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
+            animation: hologramShift 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes hologramShift {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(90deg) scale(1.1); }
+            50% { transform: rotate(180deg) scale(0.9); }
+            75% { transform: rotate(270deg) scale(1.1); }
+        }
+
+        /* 手机容器 */
+        .phone-container {
+            width: 393px;
+            height: 852px;
+            margin: 20px auto;
+            border-radius: 40px;
+            background: linear-gradient(135deg, #000000, #111111);
+            padding: 8px;
+            box-shadow:
+                0 0 50px rgba(0, 212, 255, 0.3),
+                0 0 100px rgba(255, 0, 128, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 40px;
+            padding: 2px;
+            background: var(--gradient-plasma);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: subtract;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 32px;
+            background: var(--bg-hologram);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 状态栏 */
+        .status-bar {
+            height: 44px;
+            background: var(--gradient-cyber);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            color: #000000;
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: statusScan 3s ease-in-out infinite;
+        }
+
+        @keyframes statusScan {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: -100%; }
+        }
+
+        .status-time {
+            font-family: var(--font-tech);
+            font-size: 16px;
+            font-weight: 900;
+        }
+
+        .status-icons {
+            display: flex;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        /* 页面容器 */
+        .page-container {
+            position: relative;
+            height: calc(100% - 44px - 80px);
+            overflow: hidden;
+        }
+
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .page::-webkit-scrollbar {
+            display: none;
+        }
+
+        .page.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* 页面标题 */
+        .page-header {
+            padding: 20px;
+            text-align: center;
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="rgba(0,212,255,0.1)"/><circle cx="80" cy="40" r="0.5" fill="rgba(255,0,128,0.1)"/><circle cx="40" cy="80" r="1.5" fill="rgba(255,215,0,0.1)"/></svg>');
+            animation: particleFloat 15s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+
+        .page-title {
+            font-family: var(--font-tech);
+            font-size: 24px;
+            font-weight: 900;
+            background: var(--gradient-plasma);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Info页面样式 */
+        .info-section {
+            margin: 20px;
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-cyber);
+            margin-bottom: 16px;
+        }
+
+        .info-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            animation: cardRotate 10s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes cardRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .info-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: var(--gradient-cyber);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000000;
+            font-size: 18px;
+        }
+
+        .info-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .info-content {
+            position: relative;
+            z-index: 2;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .info-content h4 {
+            color: var(--text-cyber);
+            font-weight: 700;
+            margin-bottom: 8px;
+            margin-top: 16px;
+        }
+
+        .info-content h4:first-child {
+            margin-top: 0;
+        }
+
+        .info-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-content li {
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .info-content li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: var(--text-electric);
+            font-size: 12px;
+        }
+
+        /* Buy Coins页面样式 */
+        .coin-package {
+            margin: 20px;
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all var(--animation-speed) var(--animation-bounce);
+            cursor: pointer;
+            margin-bottom: 16px;
+        }
+
+        .coin-package::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%) skewX(-45deg);
+            transition: transform 0.6s ease;
+        }
+
+        .coin-package:hover::before {
+            transform: translateX(100%) skewX(-45deg);
+        }
+
+        .coin-package:hover {
+            transform: translateY(-4px) scale(1.02);
+            border-color: var(--primary-gold);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .coin-package.popular {
+            border-color: var(--primary-neon);
+            background: var(--bg-card-neon);
+        }
+
+        .coin-package.popular::after {
+            content: 'POPULAR';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            background: var(--gradient-neon);
+            color: #FFFFFF;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .coin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .coin-amount {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .coin-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000000;
+            font-size: 18px;
+            animation: coinSpin 3s linear infinite;
+        }
+
+        @keyframes coinSpin {
+            0% { transform: rotateY(0deg); }
+            50% { transform: rotateY(180deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        .coin-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-gold);
+            font-family: var(--font-tech);
+        }
+
+        .coin-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .coin-bonus {
+            background: var(--gradient-electric);
+            color: #000000;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .coin-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .buy-button {
+            width: 100%;
+            background: var(--gradient-gold);
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            color: #000000;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all var(--animation-speed) ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .buy-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .buy-button:hover::before {
+            left: 100%;
+        }
+
+        .buy-button:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .buy-button:disabled {
+            background: #333333;
+            color: #666666;
+            cursor: not-allowed;
+        }
+
+        /* 支付方式 */
+        .payment-methods {
+            margin: 20px;
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-cyber);
+        }
+
+        .payment-methods::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 0, 128, 0.1), transparent);
+            animation: cardRotate 15s linear infinite;
+            pointer-events: none;
+        }
+
+        .payment-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .payment-option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--animation-speed) ease;
+        }
+
+        .payment-option:hover {
+            border-color: var(--primary-cyber);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .payment-option.selected {
+            border-color: var(--primary-cyber);
+            background: var(--bg-card-cyber);
+        }
+
+        .payment-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--text-cyber);
+        }
+
+        .payment-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* 底部导航栏 */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(30px);
+            border-top: 1px solid rgba(0, 212, 255, 0.3);
+            padding: 12px 16px;
+            z-index: 100;
+            border-radius: 0 0 32px 32px;
+        }
+
+        .nav-items {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: all var(--animation-speed) ease;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            color: var(--text-cyber);
+            background: var(--bg-card-cyber);
+            transform: translateY(-2px);
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 2px;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 响应式优化 */
+        @media (max-width: 480px) {
+            .phone-container {
+                width: 100%;
+                height: 100vh;
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .phone-screen {
+                border-radius: 0;
+            }
+
+            .bottom-nav {
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="phone-screen">
+            <!-- 状态栏 -->
+            <div class="status-bar">
+                <div class="status-time">9:41</div>
+                <div class="status-icons">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-three-quarters"></i>
+                </div>
+            </div>
+
+            <!-- 页面容器 -->
+            <div class="page-container">
+                <!-- Info页面 -->
+                <div class="page" id="infoPage">
+                    <!-- 页面标题 -->
+                    <div class="page-header">
+                        <h1 class="page-title">Information</h1>
+                    </div>
+
+                    <!-- 平台介绍 -->
+                    <div class="info-section">
+                        <div class="info-header">
+                            <div class="info-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <h3 class="info-title">Platform Overview</h3>
+                        </div>
+                        <div class="info-content">
+                            <p>Welcome to the future of gaming! Our 5G-powered live gaming platform brings you the most immersive and interactive gaming experience.</p>
+
+                            <h4>Key Features</h4>
+                            <ul>
+                                <li>Ultra-low latency 5G gaming</li>
+                                <li>Real-time multiplayer experiences</li>
+                                <li>AI-powered game recommendations</li>
+                                <li>Cross-platform compatibility</li>
+                                <li>Blockchain-based rewards system</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 游戏规则 -->
+                    <div class="info-section">
+                        <div class="info-header">
+                            <div class="info-icon">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <h3 class="info-title">Game Rules</h3>
+                        </div>
+                        <div class="info-content">
+                            <h4>General Guidelines</h4>
+                            <ul>
+                                <li>Fair play is mandatory - no cheating or exploits</li>
+                                <li>Respect other players in chat and interactions</li>
+                                <li>Report any bugs or issues to support team</li>
+                                <li>Account sharing is strictly prohibited</li>
+                            </ul>
+
+                            <h4>Coin System</h4>
+                            <ul>
+                                <li>Coins are the primary in-game currency</li>
+                                <li>Earn coins through daily check-ins and gameplay</li>
+                                <li>Use coins to play premium games and buy items</li>
+                                <li>Coins expire after 365 days of inactivity</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 客服支持 -->
+                    <div class="info-section">
+                        <div class="info-header">
+                            <div class="info-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <h3 class="info-title">Customer Support</h3>
+                        </div>
+                        <div class="info-content">
+                            <h4>Contact Methods</h4>
+                            <ul>
+                                <li>24/7 Live Chat Support</li>
+                                <li>Email: support@5ggaming.com</li>
+                                <li>Phone: +1-800-5G-GAMES</li>
+                                <li>Discord Community Server</li>
+                            </ul>
+
+                            <h4>Response Times</h4>
+                            <ul>
+                                <li>Live Chat: Instant to 5 minutes</li>
+                                <li>Email: Within 24 hours</li>
+                                <li>Phone: Business hours (9 AM - 9 PM)</li>
+                                <li>Discord: Community-driven support</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 安全条款 -->
+                    <div class="info-section">
+                        <div class="info-header">
+                            <div class="info-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3 class="info-title">Security & Privacy</h3>
+                        </div>
+                        <div class="info-content">
+                            <h4>Data Protection</h4>
+                            <ul>
+                                <li>End-to-end encryption for all transactions</li>
+                                <li>GDPR compliant data handling</li>
+                                <li>Regular security audits and updates</li>
+                                <li>No personal data sold to third parties</li>
+                            </ul>
+
+                            <h4>Account Security</h4>
+                            <ul>
+                                <li>Two-factor authentication available</li>
+                                <li>Regular password update reminders</li>
+                                <li>Suspicious activity monitoring</li>
+                                <li>Secure logout from all devices option</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buy Coins页面 -->
+                <div class="page" id="buycoinsPage">
+                    <!-- 页面标题 -->
+                    <div class="page-header">
+                        <h1 class="page-title">Buy Coins</h1>
+                    </div>
+
+                    <!-- 金币套餐 -->
+                    <div class="coin-package">
+                        <div class="coin-header">
+                            <div class="coin-amount">
+                                <div class="coin-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <div class="coin-value">1,000</div>
+                            </div>
+                            <div class="coin-price">$4.99</div>
+                        </div>
+                        <div class="coin-description">Perfect starter pack for new players</div>
+                        <button class="buy-button">
+                            <i class="fas fa-shopping-cart"></i> Purchase
+                        </button>
+                    </div>
+
+                    <div class="coin-package popular">
+                        <div class="coin-bonus">+20% BONUS</div>
+                        <div class="coin-header">
+                            <div class="coin-amount">
+                                <div class="coin-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <div class="coin-value">6,000</div>
+                            </div>
+                            <div class="coin-price">$24.99</div>
+                        </div>
+                        <div class="coin-description">Most popular choice with bonus coins</div>
+                        <button class="buy-button">
+                            <i class="fas fa-shopping-cart"></i> Purchase
+                        </button>
+                    </div>
+
+                    <div class="coin-package">
+                        <div class="coin-bonus">+30% BONUS</div>
+                        <div class="coin-header">
+                            <div class="coin-amount">
+                                <div class="coin-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <div class="coin-value">13,000</div>
+                            </div>
+                            <div class="coin-price">$49.99</div>
+                        </div>
+                        <div class="coin-description">Great value with maximum bonus</div>
+                        <button class="buy-button">
+                            <i class="fas fa-shopping-cart"></i> Purchase
+                        </button>
+                    </div>
+
+                    <div class="coin-package">
+                        <div class="coin-bonus">+50% BONUS</div>
+                        <div class="coin-header">
+                            <div class="coin-amount">
+                                <div class="coin-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <div class="coin-value">30,000</div>
+                            </div>
+                            <div class="coin-price">$99.99</div>
+                        </div>
+                        <div class="coin-description">Ultimate package for serious gamers</div>
+                        <button class="buy-button">
+                            <i class="fas fa-shopping-cart"></i> Purchase
+                        </button>
+                    </div>
+
+                    <div class="coin-package">
+                        <div class="coin-bonus">VIP EXCLUSIVE</div>
+                        <div class="coin-header">
+                            <div class="coin-amount">
+                                <div class="coin-icon">
+                                    <i class="fas fa-gem"></i>
+                                </div>
+                                <div class="coin-value">100,000</div>
+                            </div>
+                            <div class="coin-price">$299.99</div>
+                        </div>
+                        <div class="coin-description">Exclusive VIP package with premium benefits</div>
+                        <button class="buy-button">
+                            <i class="fas fa-crown"></i> Purchase VIP
+                        </button>
+                    </div>
+
+                    <!-- 支付方式 -->
+                    <div class="payment-methods">
+                        <h3 class="payment-title">Payment Methods</h3>
+                        <div class="payment-grid">
+                            <div class="payment-option selected">
+                                <div class="payment-icon">
+                                    <i class="fab fa-cc-visa"></i>
+                                </div>
+                                <div class="payment-name">Credit Card</div>
+                            </div>
+                            <div class="payment-option">
+                                <div class="payment-icon">
+                                    <i class="fab fa-paypal"></i>
+                                </div>
+                                <div class="payment-name">PayPal</div>
+                            </div>
+                            <div class="payment-option">
+                                <div class="payment-icon">
+                                    <i class="fab fa-apple-pay"></i>
+                                </div>
+                                <div class="payment-name">Apple Pay</div>
+                            </div>
+                            <div class="payment-option">
+                                <div class="payment-icon">
+                                    <i class="fab fa-google-pay"></i>
+                                </div>
+                                <div class="payment-name">Google Pay</div>
+                            </div>
+                            <div class="payment-option">
+                                <div class="payment-icon">
+                                    <i class="fab fa-bitcoin"></i>
+                                </div>
+                                <div class="payment-name">Crypto</div>
+                            </div>
+                            <div class="payment-option">
+                                <div class="payment-icon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <div class="payment-name">Mobile</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部导航栏 -->
+            <div class="bottom-nav">
+                <div class="nav-items">
+                    <a href="redesigned-lobby.html" class="nav-item" data-page="home">
+                        <i class="nav-icon fas fa-home"></i>
+                        <span class="nav-label">Home</span>
+                    </a>
+                    <a href="ranking-profile-pages.html" class="nav-item" data-page="ranking">
+                        <i class="nav-icon fas fa-trophy"></i>
+                        <span class="nav-label">Ranking</span>
+                    </a>
+                    <a href="#" class="nav-item active" data-page="info">
+                        <i class="nav-icon fas fa-info-circle"></i>
+                        <span class="nav-label">Info</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="buycoins">
+                        <i class="nav-icon fas fa-coins"></i>
+                        <span class="nav-label">Buy Coins</span>
+                    </a>
+                    <a href="ranking-profile-pages.html#profile" class="nav-item" data-page="profile">
+                        <i class="nav-icon fas fa-user"></i>
+                        <span class="nav-label">Profile</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 页面切换功能
+        class PageController {
+            constructor() {
+                // 检查URL hash来确定显示哪个页面
+                const hash = window.location.hash.replace('#', '');
+                this.currentPage = hash === 'buycoins' ? 'buycoins' : 'info';
+                this.pages = document.querySelectorAll('.page');
+                this.navItems = document.querySelectorAll('.nav-item');
+
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+                this.showPage(this.currentPage);
+            }
+
+            bindEvents() {
+                this.navItems.forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        const page = item.getAttribute('data-page');
+                        if (page === 'info' || page === 'buycoins') {
+                            e.preventDefault();
+                            this.showPage(page);
+                            // 更新URL hash
+                            window.location.hash = page;
+                        }
+                        // 对于其他页面，让链接正常工作
+                    });
+                });
+
+                // 购买按钮点击效果
+                const buyButtons = document.querySelectorAll('.buy-button');
+                buyButtons.forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        this.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                            alert('Purchase functionality would be implemented here');
+                        }, 150);
+                    });
+                });
+
+                // 支付方式选择
+                const paymentOptions = document.querySelectorAll('.payment-option');
+                paymentOptions.forEach(option => {
+                    option.addEventListener('click', function() {
+                        paymentOptions.forEach(opt => opt.classList.remove('selected'));
+                        this.classList.add('selected');
+                    });
+                });
+            }
+
+            showPage(pageName) {
+                // 更新导航状态
+                this.navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('data-page') === pageName) {
+                        item.classList.add('active');
+                    }
+                });
+
+                // 显示对应页面
+                this.pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+
+                if (pageName === 'info') {
+                    document.getElementById('infoPage').classList.add('active');
+                } else if (pageName === 'buycoins') {
+                    document.getElementById('buycoinsPage').classList.add('active');
+                }
+
+                this.currentPage = pageName;
+            }
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            new PageController();
+
+            // 金币包装动画效果
+            const coinPackages = document.querySelectorAll('.coin-package');
+            coinPackages.forEach(package => {
+                package.addEventListener('mouseenter', function() {
+                    const coinIcon = this.querySelector('.coin-icon');
+                    if (coinIcon) {
+                        coinIcon.style.animation = 'coinSpin 0.8s ease-in-out';
+                    }
+                });
+
+                package.addEventListener('mouseleave', function() {
+                    const coinIcon = this.querySelector('.coin-icon');
+                    if (coinIcon) {
+                        setTimeout(() => {
+                            coinIcon.style.animation = 'coinSpin 3s linear infinite';
+                        }, 800);
+                    }
+                });
+            });
+
+            // 信息卡片展开动画
+            const infoSections = document.querySelectorAll('.info-section');
+            infoSections.forEach((section, index) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    section.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+
+            // 支付方式选择动画
+            const paymentOptions = document.querySelectorAll('.payment-option');
+            paymentOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // 创建选择动画
+                    const ripple = document.createElement('div');
+                    ripple.style.cssText = `
+                        position: absolute;
+                        border-radius: 50%;
+                        background: rgba(0, 212, 255, 0.6);
+                        transform: scale(0);
+                        animation: ripple 0.6s linear;
+                        pointer-events: none;
+                    `;
+
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = '50%';
+                    ripple.style.top = '50%';
+                    ripple.style.transform = 'translate(-50%, -50%) scale(0)';
+
+                    this.appendChild(ripple);
+
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+        });
+
+        // 添加波纹动画CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: translate(-50%, -50%) scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

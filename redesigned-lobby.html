@@ -1,0 +1,2757 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5G Gaming Live Platform - Redesigned</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 高级设计系统变量 */
+        :root {
+            /* 科技感主色调 */
+            --primary-cyber: #00D4FF;
+            --primary-cyber-dark: #0099CC;
+            --primary-neon: #FF0080;
+            --primary-gold: #FFD700;
+            --primary-electric: #00FF88;
+
+            /* 渐变系统 */
+            --gradient-cyber: linear-gradient(135deg, #00D4FF 0%, #0099CC 50%, #0066FF 100%);
+            --gradient-neon: linear-gradient(135deg, #FF0080 0%, #FF0040 50%, #CC0066 100%);
+            --gradient-gold: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
+            --gradient-electric: linear-gradient(135deg, #00FF88 0%, #00CC66 50%, #009944 100%);
+            --gradient-plasma: linear-gradient(135deg, #FF00FF 0%, #00FFFF 50%, #FFFF00 100%);
+
+            /* 全息背景 */
+            --bg-hologram: linear-gradient(135deg,
+                rgba(0, 0, 0, 0.95) 0%,
+                rgba(11, 11, 26, 0.98) 25%,
+                rgba(22, 33, 62, 0.95) 50%,
+                rgba(11, 11, 26, 0.98) 75%,
+                rgba(0, 0, 0, 0.95) 100%);
+
+            /* 卡片系统 */
+            --bg-card-glass: rgba(255, 255, 255, 0.05);
+            --bg-card-cyber: rgba(0, 212, 255, 0.1);
+            --bg-card-neon: rgba(255, 0, 128, 0.1);
+
+            /* 文字系统 */
+            --text-primary: #FFFFFF;
+            --text-cyber: #00D4FF;
+            --text-neon: #FF0080;
+            --text-gold: #FFD700;
+            --text-electric: #00FF88;
+
+            /* 阴影系统 */
+            --shadow-cyber: 0 0 30px rgba(0, 212, 255, 0.5);
+            --shadow-neon: 0 0 30px rgba(255, 0, 128, 0.5);
+            --shadow-gold: 0 0 30px rgba(255, 215, 0, 0.5);
+            --shadow-hologram: 0 10px 40px rgba(0, 0, 0, 0.6);
+
+            /* 动画变量 */
+            --animation-speed: 0.3s;
+            --animation-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+            /* 间距系统 */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+
+            /* 字体系统 */
+            --font-main: 'Inter', sans-serif;
+            --font-tech: 'Orbitron', monospace;
+        }
+
+        /* 全局重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-hologram);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 全息背景动画 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 128, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
+            animation: hologramShift 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes hologramShift {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(90deg) scale(1.1); }
+            50% { transform: rotate(180deg) scale(0.9); }
+            75% { transform: rotate(270deg) scale(1.1); }
+        }
+
+        /* 手机容器 */
+        .phone-container {
+            width: 393px;
+            height: 852px;
+            margin: 20px auto;
+            border-radius: 40px;
+            background: linear-gradient(135deg, #000000, #111111);
+            padding: 8px;
+            box-shadow:
+                0 0 50px rgba(0, 212, 255, 0.3),
+                0 0 100px rgba(255, 0, 128, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 40px;
+            padding: 2px;
+            background: var(--gradient-plasma);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: subtract;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 32px;
+            background: var(--bg-hologram);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 状态栏增强 */
+        .status-bar {
+            height: 44px;
+            background: var(--gradient-cyber);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            color: #000000;
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: statusScan 3s ease-in-out infinite;
+        }
+
+        @keyframes statusScan {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: -100%; }
+        }
+
+        .status-time {
+            font-family: var(--font-tech);
+            font-size: 16px;
+            font-weight: 900;
+        }
+
+        .status-icons {
+            display: flex;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+
+        /* 用户信息卡片 */
+        .user-card {
+            margin: 20px 16px 16px 16px;
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-cyber);
+        }
+
+        .user-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            animation: cardRotate 10s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes cardRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-avatar {
+            position: relative;
+            width: 60px;
+            height: 60px;
+        }
+
+        .avatar-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            background: var(--gradient-cyber);
+            padding: 3px;
+            object-fit: cover;
+        }
+
+        .avatar-glow {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 50%;
+            background: var(--gradient-cyber);
+            animation: avatarPulse 2s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes avatarPulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .user-details h3 {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .user-id {
+            font-size: 12px;
+            color: var(--text-cyber);
+            font-family: var(--font-tech);
+        }
+
+        .user-stats {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-gold);
+            margin-bottom: 2px;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: var(--text-cyber);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* 轮播图容器 */
+        .carousel-container {
+            margin: 16px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            height: 150px; /* 按照660x250比例，实际高度约150px */
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            box-shadow: var(--shadow-cyber);
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            width: 500%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .carousel-slide {
+            width: 20%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .carousel-slide:hover .carousel-image {
+            transform: scale(1.05);
+        }
+
+        .carousel-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 20px 16px 16px;
+            color: white;
+        }
+
+        .carousel-title {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            background: var(--gradient-cyber);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .carousel-subtitle {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: var(--primary-cyber);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+            transform: scale(1.2);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .carousel-nav:hover {
+            background: var(--bg-card-cyber);
+            border-color: var(--primary-cyber);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+        }
+
+        .carousel-prev {
+            left: 12px;
+        }
+
+        .carousel-next {
+            right: 12px;
+        }
+
+        /* 快捷功能栏 */
+        .quick-actions {
+            margin: 0 16px 16px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .action-button {
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 16px 8px;
+            text-align: center;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all var(--animation-speed) var(--animation-bounce);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .action-button:hover::before {
+            left: 100%;
+        }
+
+        .action-button:hover {
+            transform: translateY(-4px) scale(1.05);
+            border-color: var(--primary-cyber);
+            box-shadow: var(--shadow-cyber);
+        }
+
+        .action-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+            background: var(--gradient-cyber);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .action-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* 游戏分类导航 */
+        .game-categories {
+            margin: 0 16px 20px;
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 4px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .category-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-tab {
+            flex-shrink: 0;
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 12px 20px;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all var(--animation-speed) ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-tab.active {
+            background: var(--gradient-cyber);
+            color: #000000;
+            border-color: var(--primary-cyber);
+            box-shadow: var(--shadow-cyber);
+        }
+
+        .category-tab:not(.active):hover {
+            background: var(--bg-card-cyber);
+            border-color: var(--primary-cyber);
+            transform: translateY(-2px);
+        }
+
+        /* 游戏房间网格 */
+        .games-section {
+            margin: 0 16px 100px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 800;
+            background: var(--gradient-plasma);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .view-more {
+            color: var(--text-cyber);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        /* 增强的游戏卡片 */
+        .game-card {
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--animation-speed) var(--animation-bounce);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%) skewX(-45deg);
+            transition: transform 0.6s ease;
+        }
+
+        .game-card:hover::before {
+            transform: translateX(100%) skewX(-45deg);
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            border-color: var(--primary-cyber);
+            box-shadow: var(--shadow-cyber);
+        }
+
+        .game-preview {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            height: 100px;
+        }
+
+        .game-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--animation-speed) ease;
+        }
+
+        .game-card:hover .game-image {
+            transform: scale(1.1);
+        }
+
+        .game-status {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+        }
+
+        .status-hot {
+            background: var(--primary-neon);
+            box-shadow: 0 0 15px rgba(255, 0, 128, 0.8);
+            animation: statusPulse 1s ease-in-out infinite;
+        }
+
+        .status-idle {
+            background: var(--primary-electric);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.8);
+            animation: statusPulse 2s ease-in-out infinite;
+        }
+
+        .status-maintenance {
+            background: #666666;
+            animation: none;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+
+        .game-overlay {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 4px 8px;
+            font-size: 10px;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .game-info h4 {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .game-subtitle {
+            font-size: 12px;
+            color: var(--text-cyber);
+            margin-bottom: 8px;
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .player-count {
+            color: var(--text-electric);
+            font-weight: 600;
+        }
+
+        .game-status-text {
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .status-hot-text { color: var(--primary-neon); }
+        .status-idle-text { color: var(--primary-electric); }
+        .status-maintenance-text { color: #666666; }
+
+        .play-button {
+            width: 100%;
+            background: var(--gradient-cyber);
+            border: none;
+            border-radius: 12px;
+            padding: 10px;
+            color: #000000;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all var(--animation-speed) ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .play-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .play-button:hover::before {
+            left: 100%;
+        }
+
+        .play-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+        }
+
+        .play-button:disabled {
+            background: #333333;
+            color: #666666;
+            cursor: not-allowed;
+        }
+
+        /* 底部导航增强 */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(30px);
+            border-top: 1px solid rgba(0, 212, 255, 0.3);
+            padding: 12px 16px;
+            z-index: 100;
+            border-radius: 0 0 32px 32px;
+        }
+
+        .nav-items {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: all var(--animation-speed) ease;
+            border-radius: 12px;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            color: var(--text-cyber);
+            background: var(--bg-card-cyber);
+            transform: translateY(-2px);
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 2px;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 页面容器 */
+        .page-container {
+            position: relative;
+            height: calc(100% - 44px - 80px);
+            overflow: hidden;
+        }
+
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .page::-webkit-scrollbar {
+            display: none;
+        }
+
+        .page.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* 页面标题 */
+        .page-header {
+            padding: 20px;
+            text-align: center;
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="rgba(0,212,255,0.1)"/><circle cx="80" cy="40" r="0.5" fill="rgba(255,0,128,0.1)"/><circle cx="40" cy="80" r="1.5" fill="rgba(255,215,0,0.1)"/></svg>');
+            animation: particleFloat 15s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+
+        .page-title {
+            font-family: var(--font-tech);
+            font-size: 24px;
+            font-weight: 900;
+            background: var(--gradient-plasma);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 排行榜页面样式 */
+        .ranking-user-card {
+            margin: 20px;
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-cyber);
+        }
+
+        .ranking-user-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            animation: cardRotate 10s linear infinite;
+            pointer-events: none;
+        }
+
+        .ranking-user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ranking-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-cyber);
+            position: relative;
+        }
+
+        .ranking-avatar::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 50%;
+            background: var(--gradient-cyber);
+            animation: avatarPulse 2s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes avatarPulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .ranking-details h3 {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .ranking-id {
+            font-family: var(--font-tech);
+            font-size: 12px;
+            color: var(--text-cyber);
+            margin-bottom: 8px;
+        }
+
+        .ranking-stats {
+            display: flex;
+            gap: 16px;
+        }
+
+        .ranking-stat {
+            text-align: center;
+        }
+
+        .ranking-stat-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-gold);
+        }
+
+        .ranking-stat-label {
+            font-size: 10px;
+            color: var(--text-cyber);
+            text-transform: uppercase;
+        }
+
+        /* 排行榜分类标签 */
+        .ranking-tabs {
+            margin: 20px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 4px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .ranking-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .ranking-tab {
+            flex-shrink: 0;
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 12px 20px;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all var(--animation-speed) ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ranking-tab.active {
+            background: var(--gradient-cyber);
+            color: #000000;
+            border-color: var(--primary-cyber);
+            box-shadow: var(--shadow-cyber);
+        }
+
+        .ranking-tab:not(.active):hover {
+            background: var(--bg-card-cyber);
+            border-color: var(--primary-cyber);
+            transform: translateY(-2px);
+        }
+
+        /* 排行榜列表 */
+        .ranking-list {
+            margin: 0 20px 20px;
+        }
+
+        .ranking-item {
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all var(--animation-speed) ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ranking-item:hover {
+            border-color: var(--primary-cyber);
+            transform: translateX(4px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.2);
+        }
+
+        .ranking-position {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+        }
+
+        .ranking-position.top-1 {
+            background: var(--gradient-gold);
+            color: #000000;
+            box-shadow: var(--shadow-gold);
+        }
+
+        .ranking-position.top-2 {
+            background: linear-gradient(135deg, #C0C0C0 0%, #A9A9A9 100%);
+            color: #000000;
+        }
+
+        .ranking-position.top-3 {
+            background: linear-gradient(135deg, #CD7F32 0%, #A0522D 100%);
+            color: #FFFFFF;
+        }
+
+        .ranking-position.other {
+            background: var(--bg-card-cyber);
+            color: var(--text-cyber);
+        }
+
+        .ranking-player-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-cyber);
+        }
+
+        .ranking-player-info {
+            flex: 1;
+        }
+
+        .ranking-player-name {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .ranking-player-score {
+            font-size: 12px;
+            color: var(--text-cyber);
+        }
+
+        .ranking-score {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-gold);
+        }
+
+        /* 个人页面样式 */
+        .profile-header {
+            margin: 20px;
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-cyber);
+        }
+
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 0, 128, 0.1), transparent);
+            animation: cardRotate 15s linear infinite;
+            pointer-events: none;
+        }
+
+        .profile-user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            background: var(--gradient-neon);
+            padding: 4px;
+            position: relative;
+        }
+
+        .profile-avatar::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border-radius: 50%;
+            background: var(--gradient-neon);
+            animation: avatarPulse 3s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .profile-details h2 {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .profile-id {
+            font-family: var(--font-tech);
+            font-size: 14px;
+            color: var(--text-neon);
+            margin-bottom: 8px;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-stat {
+            text-align: center;
+        }
+
+        .profile-stat-value {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-gold);
+            margin-bottom: 4px;
+            justify-content: center;
+        }
+
+        .profile-stat-label {
+            font-size: 11px;
+            color: var(--text-cyber);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* 个人菜单列表 */
+        .profile-menu {
+            margin: 0 20px 20px;
+        }
+
+        .menu-item {
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all var(--animation-speed) var(--animation-bounce);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .menu-item:hover::before {
+            left: 100%;
+        }
+
+        .menu-item:hover {
+            border-color: var(--primary-cyber);
+            transform: translateX(8px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.2);
+        }
+
+        .menu-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            background: var(--gradient-cyber);
+            color: #000000;
+        }
+
+        .menu-text {
+            flex: 1;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .menu-arrow {
+            color: var(--text-cyber);
+            font-size: 14px;
+        }
+
+        /* 注销按钮 */
+        .logout-button {
+            margin: 20px;
+            background: var(--gradient-neon);
+            border: none;
+            border-radius: 25px;
+            padding: 16px;
+            color: #FFFFFF;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all var(--animation-speed) ease;
+            position: relative;
+            overflow: hidden;
+            width: calc(100% - 40px);
+        }
+
+        .logout-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .logout-button:hover::before {
+            left: 100%;
+        }
+
+        .logout-button:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-neon);
+        }
+
+        /* Info页面样式 */
+        .info-section {
+            margin: 20px;
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-cyber);
+            margin-bottom: 16px;
+        }
+
+        .info-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            animation: cardRotate 10s linear infinite;
+            pointer-events: none;
+        }
+
+        .info-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: var(--gradient-cyber);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000000;
+            font-size: 18px;
+        }
+
+        .info-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .info-content {
+            position: relative;
+            z-index: 2;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .info-content h4 {
+            color: var(--text-cyber);
+            font-weight: 700;
+            margin-bottom: 8px;
+            margin-top: 16px;
+        }
+
+        .info-content h4:first-child {
+            margin-top: 0;
+        }
+
+        .info-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-content li {
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .info-content li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: var(--text-electric);
+            font-size: 12px;
+        }
+
+        /* Buy Coins页面样式 */
+        .coin-package {
+            margin: 20px;
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all var(--animation-speed) var(--animation-bounce);
+            cursor: pointer;
+            margin-bottom: 16px;
+        }
+
+        .coin-package::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%) skewX(-45deg);
+            transition: transform 0.6s ease;
+        }
+
+        .coin-package:hover::before {
+            transform: translateX(100%) skewX(-45deg);
+        }
+
+        .coin-package:hover {
+            transform: translateY(-4px) scale(1.02);
+            border-color: var(--primary-gold);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .coin-package.popular {
+            border-color: var(--primary-neon);
+            background: var(--bg-card-neon);
+        }
+
+        .coin-package.popular::after {
+            content: 'POPULAR';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            background: var(--gradient-neon);
+            color: #FFFFFF;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .coin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .coin-amount {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .coin-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000000;
+            font-size: 18px;
+            animation: coinSpin 3s linear infinite;
+        }
+
+        @keyframes coinSpin {
+            0% { transform: rotateY(0deg); }
+            50% { transform: rotateY(180deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        .coin-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-gold);
+            font-family: var(--font-tech);
+        }
+
+        .coin-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .coin-bonus {
+            background: var(--gradient-electric);
+            color: #000000;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .coin-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .buy-button {
+            width: 100%;
+            background: var(--gradient-gold);
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            color: #000000;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all var(--animation-speed) ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .buy-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .buy-button:hover::before {
+            left: 100%;
+        }
+
+        .buy-button:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .buy-button:disabled {
+            background: #333333;
+            color: #666666;
+            cursor: not-allowed;
+        }
+
+        /* 支付方式 */
+        .payment-methods {
+            margin: 20px;
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-cyber);
+        }
+
+        .payment-methods::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 0, 128, 0.1), transparent);
+            animation: cardRotate 15s linear infinite;
+            pointer-events: none;
+        }
+
+        .payment-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .payment-option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--animation-speed) ease;
+        }
+
+        .payment-option:hover {
+            border-color: var(--primary-cyber);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .payment-option.selected {
+            border-color: var(--primary-cyber);
+            background: var(--bg-card-cyber);
+        }
+
+        .payment-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--text-cyber);
+        }
+
+        .payment-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* 响应式优化 */
+        @media (max-width: 480px) {
+            .phone-container {
+                width: 100%;
+                height: 100vh;
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .phone-screen {
+                border-radius: 0;
+            }
+
+            .bottom-nav {
+                border-radius: 0;
+            }
+        }
+
+        /* 加载动画 */
+        .loading-shimmer {
+            background: linear-gradient(90deg,
+                rgba(255, 255, 255, 0.05) 25%,
+                rgba(255, 255, 255, 0.15) 50%,
+                rgba(255, 255, 255, 0.05) 75%);
+            background-size: 200px 100%;
+            animation: shimmer 2s infinite linear;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200px 0; }
+            100% { background-position: calc(200px + 100%) 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="phone-screen">
+            <!-- 状态栏 -->
+            <div class="status-bar">
+                <div class="status-time">9:41</div>
+                <div class="status-icons">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-three-quarters"></i>
+                </div>
+            </div>
+
+            <!-- 页面容器 -->
+            <div class="page-container">
+                <!-- Home页面 -->
+                <div class="page active" id="homePage">
+                <!-- 用户信息卡片 -->
+                <div class="user-card">
+                    <div class="user-info">
+                        <div class="user-profile">
+                            <div class="user-avatar">
+                                <div class="avatar-glow"></div>
+                                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=60&h=60&fit=crop&crop=faces"
+                                     alt="用户头像" class="avatar-image">
+                            </div>
+                            <div class="user-details">
+                                <h3>test123</h3>
+                                <div class="user-id">ID: 127009957</div>
+                            </div>
+                        </div>
+                        <div class="user-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">
+                                    <i class="fas fa-coins"></i>
+                                    33986
+                                </div>
+                                <div class="stat-label">Points</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">
+                                    <i class="fas fa-gem"></i>
+                                    40068
+                                </div>
+                                <div class="stat-label">Diamonds</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 轮播图 -->
+                <div class="carousel-container">
+                    <div class="carousel-wrapper">
+                        <div class="carousel-track" id="carouselTrack">
+                            <div class="carousel-slide">
+                                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=660&h=250&fit=crop"
+                                     alt="VIP Exclusive" class="carousel-image">
+                                <div class="carousel-overlay">
+                                    <div class="carousel-title">VIP Exclusive</div>
+                                    <div class="carousel-subtitle">Special rewards for VIP members</div>
+                                </div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=660&h=250&fit=crop"
+                                     alt="Daily Check-in" class="carousel-image">
+                                <div class="carousel-overlay">
+                                    <div class="carousel-title">Daily Check-in</div>
+                                    <div class="carousel-subtitle">Sign in daily for amazing rewards</div>
+                                </div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=660&h=250&fit=crop"
+                                     alt="Tournament" class="carousel-image">
+                                <div class="carousel-overlay">
+                                    <div class="carousel-title">Gaming Tournament</div>
+                                    <div class="carousel-subtitle">Join the ultimate gaming competition</div>
+                                </div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://images.unsplash.com/photo-1556438064-2d7646166914?w=660&h=250&fit=crop"
+                                     alt="New Games" class="carousel-image">
+                                <div class="carousel-overlay">
+                                    <div class="carousel-title">New Games Added</div>
+                                    <div class="carousel-subtitle">Discover exciting new gaming experiences</div>
+                                </div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=660&h=250&fit=crop"
+                                     alt="Bonus Event" class="carousel-image">
+                                <div class="carousel-overlay">
+                                    <div class="carousel-title">Bonus Event</div>
+                                    <div class="carousel-subtitle">Double rewards this week</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 导航按钮 -->
+                        <div class="carousel-nav carousel-prev" id="carouselPrev">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <div class="carousel-nav carousel-next" id="carouselNext">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+
+                        <!-- 指示器 -->
+                        <div class="carousel-indicators" id="carouselIndicators">
+                            <div class="carousel-dot active"></div>
+                            <div class="carousel-dot"></div>
+                            <div class="carousel-dot"></div>
+                            <div class="carousel-dot"></div>
+                            <div class="carousel-dot"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 快捷功能栏 -->
+                <div class="quick-actions">
+                    <a href="#" class="action-button">
+                        <div class="action-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="action-label">Check In</div>
+                    </a>
+                    <a href="#" class="action-button">
+                        <div class="action-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="action-label">Support</div>
+                    </a>
+                    <a href="#" class="action-button">
+                        <div class="action-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="action-label">Mail</div>
+                    </a>
+                    <a href="#" class="action-button">
+                        <div class="action-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <div class="action-label">Exchange</div>
+                    </a>
+                </div>
+
+                <!-- 游戏分类导航 -->
+                <div class="game-categories">
+                    <div class="category-tabs">
+                        <button class="category-tab active">Arcade</button>
+                        <button class="category-tab">Coin Pusher</button>
+                        <button class="category-tab">Doll Machine</button>
+                        <button class="category-tab">More</button>
+                    </div>
+                </div>
+
+                <!-- 游戏房间 -->
+                <div class="games-section">
+                    <div class="section-header">
+                        <h3 class="section-title">🔥 Popular Games</h3>
+                        <a href="#" class="view-more">View More</a>
+                    </div>
+
+                    <div class="games-grid">
+                        <!-- Golden Fantasy -->
+                        <div class="game-card">
+                            <div class="game-preview">
+                                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=200&h=100&fit=crop"
+                                     alt="Golden Fantasy" class="game-image">
+                                <div class="game-status status-hot"></div>
+                                <div class="game-overlay">10 Online</div>
+                            </div>
+                            <div class="game-info">
+                                <h4>Golden Fantasy</h4>
+                                <div class="game-subtitle">Fantasy Shooting Adventure</div>
+                                <div class="game-stats">
+                                    <span class="player-count">👥 10 Players</span>
+                                    <span class="game-status-text status-hot-text">HOT</span>
+                                </div>
+                                <button class="play-button">
+                                    <i class="fas fa-play"></i> Enter Game
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Forest Paradise -->
+                        <div class="game-card">
+                            <div class="game-preview">
+                                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=200&h=100&fit=crop"
+                                     alt="Forest Paradise" class="game-image">
+                                <div class="game-status status-hot"></div>
+                                <div class="game-overlay">10 Online</div>
+                            </div>
+                            <div class="game-info">
+                                <h4>Forest Paradise</h4>
+                                <div class="game-subtitle">Nature Exploration Journey</div>
+                                <div class="game-stats">
+                                    <span class="player-count">👥 10 Players</span>
+                                    <span class="game-status-text status-hot-text">HOT</span>
+                                </div>
+                                <button class="play-button">
+                                    <i class="fas fa-play"></i> Enter Game
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Free Journey -->
+                        <div class="game-card">
+                            <div class="game-preview">
+                                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&h=100&fit=crop"
+                                     alt="Free Journey" class="game-image">
+                                <div class="game-status status-idle"></div>
+                                <div class="game-overlay">Available</div>
+                            </div>
+                            <div class="game-info">
+                                <h4>Free Journey</h4>
+                                <div class="game-subtitle">Ancient Fantasy World</div>
+                                <div class="game-stats">
+                                    <span class="player-count">👥 Available</span>
+                                    <span class="game-status-text status-idle-text">IDLE</span>
+                                </div>
+                                <button class="play-button">
+                                    <i class="fas fa-play"></i> Enter Game
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Air Combat -->
+                        <div class="game-card">
+                            <div class="game-preview">
+                                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=200&h=100&fit=crop"
+                                     alt="Air Combat" class="game-image">
+                                <div class="game-status status-idle"></div>
+                                <div class="game-overlay">Available</div>
+                            </div>
+                            <div class="game-info">
+                                <h4>Air Combat</h4>
+                                <div class="game-subtitle">Aerial Fighter</div>
+                                <div class="game-stats">
+                                    <span class="player-count">👥 Available</span>
+                                    <span class="game-status-text status-idle-text">IDLE</span>
+                                </div>
+                                <button class="play-button">
+                                    <i class="fas fa-play"></i> Enter Game
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <!-- Home页面结束 -->
+
+                <!-- Ranking页面 -->
+                <div class="page" id="rankingPage">
+                    <!-- 页面标题 -->
+                    <div class="page-header">
+                        <h1 class="page-title">Ranking</h1>
+                    </div>
+
+                    <!-- 用户排名信息 -->
+                    <div class="ranking-user-card">
+                        <div class="ranking-user-info">
+                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=60&h=60&fit=crop&crop=faces"
+                                 alt="User Avatar" class="ranking-avatar">
+                            <div class="ranking-details">
+                                <h3>test123</h3>
+                                <div class="ranking-id">ID: 127009957</div>
+                                <div class="ranking-stats">
+                                    <div class="ranking-stat">
+                                        <div class="ranking-stat-value">0</div>
+                                        <div class="ranking-stat-label">Current Rank</div>
+                                    </div>
+                                    <div class="ranking-stat">
+                                        <div class="ranking-stat-value">0</div>
+                                        <div class="ranking-stat-label">Last Week Rank</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 排行榜分类 -->
+                    <div class="ranking-tabs">
+                        <button class="ranking-tab active">Ticket</button>
+                        <button class="ranking-tab">Arcade</button>
+                        <button class="ranking-tab">Coin Pusher</button>
+                        <button class="ranking-tab">Doll Machine</button>
+                    </div>
+
+                    <!-- 排行榜列表 -->
+                    <div class="ranking-list">
+                        <!-- Top 3 players -->
+                        <div class="ranking-item">
+                            <div class="ranking-position top-1">1</div>
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=faces"
+                                 alt="Player 1" class="ranking-player-avatar">
+                            <div class="ranking-player-info">
+                                <div class="ranking-player-name">DragonMaster</div>
+                                <div class="ranking-player-score">Level 98 Champion</div>
+                            </div>
+                            <div class="ranking-score">99,999</div>
+                        </div>
+
+                        <div class="ranking-item">
+                            <div class="ranking-position top-2">2</div>
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=faces"
+                                 alt="Player 2" class="ranking-player-avatar">
+                            <div class="ranking-player-info">
+                                <div class="ranking-player-name">CyberNinja</div>
+                                <div class="ranking-player-score">Level 95 Expert</div>
+                            </div>
+                            <div class="ranking-score">87,654</div>
+                        </div>
+
+                        <div class="ranking-item">
+                            <div class="ranking-position top-3">3</div>
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b820?w=50&h=50&fit=crop&crop=faces"
+                                 alt="Player 3" class="ranking-player-avatar">
+                            <div class="ranking-player-info">
+                                <div class="ranking-player-name">StarGamer</div>
+                                <div class="ranking-player-score">Level 92 Pro</div>
+                            </div>
+                            <div class="ranking-score">76,543</div>
+                        </div>
+
+                        <!-- Other players -->
+                        <div class="ranking-item">
+                            <div class="ranking-position other">4</div>
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=faces"
+                                 alt="Player 4" class="ranking-player-avatar">
+                            <div class="ranking-player-info">
+                                <div class="ranking-player-name">PixelHero</div>
+                                <div class="ranking-player-score">Level 88 Advanced</div>
+                            </div>
+                            <div class="ranking-score">65,432</div>
+                        </div>
+
+                        <div class="ranking-item">
+                            <div class="ranking-position other">5</div>
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=50&h=50&fit=crop&crop=faces"
+                                 alt="Player 5" class="ranking-player-avatar">
+                            <div class="ranking-player-info">
+                                <div class="ranking-player-name">GameMaster</div>
+                                <div class="ranking-player-score">Level 85 Skilled</div>
+                            </div>
+                            <div class="ranking-score">54,321</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Ranking页面结束 -->
+
+                <!-- Profile页面 -->
+                <div class="page" id="profilePage">
+                    <!-- 页面标题 -->
+                    <div class="page-header">
+                        <h1 class="page-title">Profile</h1>
+                    </div>
+
+                    <!-- 用户信息头部 -->
+                    <div class="profile-header">
+                        <div class="profile-user-info">
+                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=faces"
+                                 alt="User Avatar" class="profile-avatar">
+                            <div class="profile-details">
+                                <h2>test123</h2>
+                                <div class="profile-id">ID: 127009957</div>
+                            </div>
+                        </div>
+                        <div class="profile-stats">
+                            <div class="profile-stat">
+                                <div class="profile-stat-value">
+                                    <i class="fas fa-gem"></i>
+                                    40068
+                                </div>
+                                <div class="profile-stat-label">Diamonds</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="profile-stat-value">
+                                    <i class="fas fa-coins"></i>
+                                    33986
+                                </div>
+                                <div class="profile-stat-label">Points</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 功能菜单 -->
+                    <div class="profile-menu">
+                        <a href="#" class="menu-item">
+                            <div class="menu-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="menu-text">Mail</div>
+                            <div class="menu-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="menu-item">
+                            <div class="menu-icon">
+                                <i class="fas fa-user-friends"></i>
+                            </div>
+                            <div class="menu-text">Invite Friends</div>
+                            <div class="menu-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="menu-item">
+                            <div class="menu-icon">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                            <div class="menu-text">Friend Invite Reward</div>
+                            <div class="menu-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="menu-item">
+                            <div class="menu-icon">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <div class="menu-text">Game History</div>
+                            <div class="menu-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="menu-item">
+                            <div class="menu-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="menu-text">Address Settings</div>
+                            <div class="menu-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="menu-item">
+                            <div class="menu-icon">
+                                <i class="fas fa-comment-dots"></i>
+                            </div>
+                            <div class="menu-text">Feedback</div>
+                            <div class="menu-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- 注销按钮 -->
+                    <button class="logout-button">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                </div>
+                <!-- Profile页面结束 -->
+
+                <!-- Info页面 -->
+                <div class="page" id="infoPage">
+                    <!-- 页面标题 -->
+                    <div class="page-header">
+                        <h1 class="page-title">Information</h1>
+                    </div>
+
+                    <!-- 平台介绍 -->
+                    <div class="info-section">
+                        <div class="info-header">
+                            <div class="info-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <h3 class="info-title">Platform Overview</h3>
+                        </div>
+                        <div class="info-content">
+                            <p>Welcome to the future of gaming! Our 5G-powered live gaming platform brings you the most immersive and interactive gaming experience.</p>
+
+                            <h4>Key Features</h4>
+                            <ul>
+                                <li>Ultra-low latency 5G gaming</li>
+                                <li>Real-time multiplayer experiences</li>
+                                <li>AI-powered game recommendations</li>
+                                <li>Cross-platform compatibility</li>
+                                <li>Blockchain-based rewards system</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 游戏规则 -->
+                    <div class="info-section">
+                        <div class="info-header">
+                            <div class="info-icon">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <h3 class="info-title">Game Rules</h3>
+                        </div>
+                        <div class="info-content">
+                            <h4>General Guidelines</h4>
+                            <ul>
+                                <li>Fair play is mandatory - no cheating or exploits</li>
+                                <li>Respect other players in chat and interactions</li>
+                                <li>Report any bugs or issues to support team</li>
+                                <li>Account sharing is strictly prohibited</li>
+                            </ul>
+
+                            <h4>Coin System</h4>
+                            <ul>
+                                <li>Coins are the primary in-game currency</li>
+                                <li>Earn coins through daily check-ins and gameplay</li>
+                                <li>Use coins to play premium games and buy items</li>
+                                <li>Coins expire after 365 days of inactivity</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 客服支持 -->
+                    <div class="info-section">
+                        <div class="info-header">
+                            <div class="info-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <h3 class="info-title">Customer Support</h3>
+                        </div>
+                        <div class="info-content">
+                            <h4>Contact Methods</h4>
+                            <ul>
+                                <li>24/7 Live Chat Support</li>
+                                <li>Email: support@5ggaming.com</li>
+                                <li>Phone: +1-800-5G-GAMES</li>
+                                <li>Discord Community Server</li>
+                            </ul>
+
+                            <h4>Response Times</h4>
+                            <ul>
+                                <li>Live Chat: Instant to 5 minutes</li>
+                                <li>Email: Within 24 hours</li>
+                                <li>Phone: Business hours (9 AM - 9 PM)</li>
+                                <li>Discord: Community-driven support</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 安全条款 -->
+                    <div class="info-section">
+                        <div class="info-header">
+                            <div class="info-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3 class="info-title">Security & Privacy</h3>
+                        </div>
+                        <div class="info-content">
+                            <h4>Data Protection</h4>
+                            <ul>
+                                <li>End-to-end encryption for all transactions</li>
+                                <li>GDPR compliant data handling</li>
+                                <li>Regular security audits and updates</li>
+                                <li>No personal data sold to third parties</li>
+                            </ul>
+
+                            <h4>Account Security</h4>
+                            <ul>
+                                <li>Two-factor authentication available</li>
+                                <li>Regular password update reminders</li>
+                                <li>Suspicious activity monitoring</li>
+                                <li>Secure logout from all devices option</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Info页面结束 -->
+
+                <!-- Buy Coins页面 -->
+                <div class="page" id="buycoinsPage">
+                    <!-- 页面标题 -->
+                    <div class="page-header">
+                        <h1 class="page-title">Buy Coins</h1>
+                    </div>
+
+                    <!-- 金币套餐 -->
+                    <div class="coin-package">
+                        <div class="coin-header">
+                            <div class="coin-amount">
+                                <div class="coin-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <div class="coin-value">1,000</div>
+                            </div>
+                            <div class="coin-price">$4.99</div>
+                        </div>
+                        <div class="coin-description">Perfect starter pack for new players</div>
+                        <button class="buy-button">
+                            <i class="fas fa-shopping-cart"></i> Purchase
+                        </button>
+                    </div>
+
+                    <div class="coin-package popular">
+                        <div class="coin-bonus">+20% BONUS</div>
+                        <div class="coin-header">
+                            <div class="coin-amount">
+                                <div class="coin-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <div class="coin-value">6,000</div>
+                            </div>
+                            <div class="coin-price">$24.99</div>
+                        </div>
+                        <div class="coin-description">Most popular choice with bonus coins</div>
+                        <button class="buy-button">
+                            <i class="fas fa-shopping-cart"></i> Purchase
+                        </button>
+                    </div>
+
+                    <div class="coin-package">
+                        <div class="coin-bonus">+30% BONUS</div>
+                        <div class="coin-header">
+                            <div class="coin-amount">
+                                <div class="coin-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <div class="coin-value">13,000</div>
+                            </div>
+                            <div class="coin-price">$49.99</div>
+                        </div>
+                        <div class="coin-description">Great value with maximum bonus</div>
+                        <button class="buy-button">
+                            <i class="fas fa-shopping-cart"></i> Purchase
+                        </button>
+                    </div>
+
+                    <div class="coin-package">
+                        <div class="coin-bonus">+50% BONUS</div>
+                        <div class="coin-header">
+                            <div class="coin-amount">
+                                <div class="coin-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <div class="coin-value">30,000</div>
+                            </div>
+                            <div class="coin-price">$99.99</div>
+                        </div>
+                        <div class="coin-description">Ultimate package for serious gamers</div>
+                        <button class="buy-button">
+                            <i class="fas fa-shopping-cart"></i> Purchase
+                        </button>
+                    </div>
+
+                    <div class="coin-package">
+                        <div class="coin-bonus">VIP EXCLUSIVE</div>
+                        <div class="coin-header">
+                            <div class="coin-amount">
+                                <div class="coin-icon">
+                                    <i class="fas fa-gem"></i>
+                                </div>
+                                <div class="coin-value">100,000</div>
+                            </div>
+                            <div class="coin-price">$299.99</div>
+                        </div>
+                        <div class="coin-description">Exclusive VIP package with premium benefits</div>
+                        <button class="buy-button">
+                            <i class="fas fa-crown"></i> Purchase VIP
+                        </button>
+                    </div>
+
+                    <!-- 支付方式 -->
+                    <div class="payment-methods">
+                        <h3 class="payment-title">Payment Methods</h3>
+                        <div class="payment-grid">
+                            <div class="payment-option selected">
+                                <div class="payment-icon">
+                                    <i class="fab fa-cc-visa"></i>
+                                </div>
+                                <div class="payment-name">Credit Card</div>
+                            </div>
+                            <div class="payment-option">
+                                <div class="payment-icon">
+                                    <i class="fab fa-paypal"></i>
+                                </div>
+                                <div class="payment-name">PayPal</div>
+                            </div>
+                            <div class="payment-option">
+                                <div class="payment-icon">
+                                    <i class="fab fa-apple-pay"></i>
+                                </div>
+                                <div class="payment-name">Apple Pay</div>
+                            </div>
+                            <div class="payment-option">
+                                <div class="payment-icon">
+                                    <i class="fab fa-google-pay"></i>
+                                </div>
+                                <div class="payment-name">Google Pay</div>
+                            </div>
+                            <div class="payment-option">
+                                <div class="payment-icon">
+                                    <i class="fab fa-bitcoin"></i>
+                                </div>
+                                <div class="payment-name">Crypto</div>
+                            </div>
+                            <div class="payment-option">
+                                <div class="payment-icon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <div class="payment-name">Mobile</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Buy Coins页面结束 -->
+            </div>
+
+            <!-- 底部导航 -->
+            <div class="bottom-nav">
+                <div class="nav-items">
+                    <a href="#" class="nav-item active" data-page="home">
+                        <i class="nav-icon fas fa-home"></i>
+                        <span class="nav-label">Home</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="ranking">
+                        <i class="nav-icon fas fa-trophy"></i>
+                        <span class="nav-label">Ranking</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="info">
+                        <i class="nav-icon fas fa-info-circle"></i>
+                        <span class="nav-label">Info</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="buycoins">
+                        <i class="nav-icon fas fa-coins"></i>
+                        <span class="nav-label">Buy Coins</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="profile">
+                        <i class="nav-icon fas fa-user"></i>
+                        <span class="nav-label">Profile</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 页面切换控制器
+        class PageController {
+            constructor() {
+                // 检查URL hash来确定显示哪个页面
+                const hash = window.location.hash.replace('#', '');
+                this.currentPage = ['home', 'ranking', 'profile', 'info', 'buycoins'].includes(hash) ? hash : 'home';
+                this.pages = document.querySelectorAll('.page');
+                this.navItems = document.querySelectorAll('.nav-item');
+
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+                this.showPage(this.currentPage);
+            }
+
+            bindEvents() {
+                this.navItems.forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const page = item.getAttribute('data-page');
+                        this.showPage(page);
+                        // 更新URL hash
+                        window.location.hash = page;
+                    });
+                });
+
+                // 监听hash变化
+                window.addEventListener('hashchange', () => {
+                    const hash = window.location.hash.replace('#', '');
+                    if (['home', 'ranking', 'profile', 'info', 'buycoins'].includes(hash)) {
+                        this.showPage(hash);
+                    }
+                });
+
+                // 排行榜分类切换
+                const rankingTabs = document.querySelectorAll('.ranking-tab');
+                rankingTabs.forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        rankingTabs.forEach(t => t.classList.remove('active'));
+                        this.classList.add('active');
+                    });
+                });
+
+                // 个人页面菜单项点击效果
+                const menuItems = document.querySelectorAll('.menu-item');
+                menuItems.forEach(item => {
+                    item.addEventListener('click', function(e) {
+                        e.preventDefault();
+
+                        // 创建波纹效果
+                        const ripple = document.createElement('div');
+                        ripple.style.cssText = `
+                            position: absolute;
+                            border-radius: 50%;
+                            background: rgba(0, 212, 255, 0.6);
+                            transform: scale(0);
+                            animation: ripple 0.6s linear;
+                            pointer-events: none;
+                        `;
+
+                        const rect = this.getBoundingClientRect();
+                        const size = Math.max(rect.width, rect.height);
+                        ripple.style.width = ripple.style.height = size + 'px';
+                        ripple.style.left = '50%';
+                        ripple.style.top = '50%';
+                        ripple.style.transform = 'translate(-50%, -50%) scale(0)';
+
+                        this.appendChild(ripple);
+
+                        setTimeout(() => {
+                            ripple.remove();
+                        }, 600);
+                    });
+                });
+
+                // 注销按钮确认
+                const logoutButton = document.querySelector('.logout-button');
+                if (logoutButton) {
+                    logoutButton.addEventListener('click', function() {
+                        if (confirm('Are you sure you want to logout?')) {
+                            alert('Logout functionality would be implemented here');
+                        }
+                    });
+                }
+
+                // 购买按钮点击效果
+                const buyButtons = document.querySelectorAll('.buy-button');
+                buyButtons.forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        this.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                            alert('Purchase functionality would be implemented here');
+                        }, 150);
+                    });
+                });
+
+                // 支付方式选择
+                const paymentOptions = document.querySelectorAll('.payment-option');
+                paymentOptions.forEach(option => {
+                    option.addEventListener('click', function() {
+                        paymentOptions.forEach(opt => opt.classList.remove('selected'));
+                        this.classList.add('selected');
+                    });
+                });
+            }
+
+            showPage(pageName) {
+                // 更新导航状态
+                this.navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('data-page') === pageName) {
+                        item.classList.add('active');
+                    }
+                });
+
+                // 显示对应页面
+                this.pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+
+                const targetPage = document.getElementById(pageName + 'Page');
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                }
+
+                this.currentPage = pageName;
+            }
+        }
+
+        // 轮播图功能
+        class Carousel {
+            constructor() {
+                this.track = document.getElementById('carouselTrack');
+                this.slides = document.querySelectorAll('.carousel-slide');
+                this.dots = document.querySelectorAll('.carousel-dot');
+                this.prevBtn = document.getElementById('carouselPrev');
+                this.nextBtn = document.getElementById('carouselNext');
+
+                this.currentSlide = 0;
+                this.totalSlides = this.slides.length;
+                this.autoPlayInterval = null;
+
+                this.init();
+            }
+
+            init() {
+                if (this.track && this.slides.length > 0) {
+                    this.updateCarousel();
+                    this.bindEvents();
+                    this.startAutoPlay();
+                }
+            }
+
+            bindEvents() {
+                if (this.prevBtn) this.prevBtn.addEventListener('click', () => this.prevSlide());
+                if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.nextSlide());
+
+                this.dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                });
+
+                // 鼠标悬停停止自动播放
+                const container = document.querySelector('.carousel-container');
+                if (container) {
+                    container.addEventListener('mouseenter', () => this.stopAutoPlay());
+                    container.addEventListener('mouseleave', () => this.startAutoPlay());
+                }
+            }
+
+            updateCarousel() {
+                const translateX = -this.currentSlide * 20;
+                this.track.style.transform = `translateX(${translateX}%)`;
+
+                this.dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === this.currentSlide);
+                });
+            }
+
+            nextSlide() {
+                this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+                this.updateCarousel();
+            }
+
+            prevSlide() {
+                this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+                this.updateCarousel();
+            }
+
+            goToSlide(index) {
+                this.currentSlide = index;
+                this.updateCarousel();
+            }
+
+            startAutoPlay() {
+                this.stopAutoPlay();
+                this.autoPlayInterval = setInterval(() => {
+                    this.nextSlide();
+                }, 4000);
+            }
+
+            stopAutoPlay() {
+                if (this.autoPlayInterval) {
+                    clearInterval(this.autoPlayInterval);
+                    this.autoPlayInterval = null;
+                }
+            }
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化页面控制器
+            new PageController();
+
+            // 初始化轮播图
+            new Carousel();
+
+            // 分类标签切换
+            const categoryTabs = document.querySelectorAll('.category-tab');
+            categoryTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    categoryTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // 游戏卡片3D效果
+            const gameCards = document.querySelectorAll('.game-card');
+            gameCards.forEach(card => {
+                card.addEventListener('mousemove', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+
+                    this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.03)`;
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
+            });
+
+            // 快捷操作按钮效果
+            const actionButtons = document.querySelectorAll('.action-button');
+            actionButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    // 创建波纹效果
+                    const ripple = document.createElement('div');
+                    ripple.style.cssText = `
+                        position: absolute;
+                        border-radius: 50%;
+                        background: rgba(0, 212, 255, 0.6);
+                        transform: scale(0);
+                        animation: ripple 0.6s linear;
+                        pointer-events: none;
+                    `;
+
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = '50%';
+                    ripple.style.top = '50%';
+                    ripple.style.transform = 'translate(-50%, -50%) scale(0)';
+
+                    this.appendChild(ripple);
+
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+
+            // 金币包装动画效果
+            const coinPackages = document.querySelectorAll('.coin-package');
+            coinPackages.forEach(package => {
+                package.addEventListener('mouseenter', function() {
+                    const coinIcon = this.querySelector('.coin-icon');
+                    if (coinIcon) {
+                        coinIcon.style.animation = 'coinSpin 0.8s ease-in-out';
+                    }
+                });
+
+                package.addEventListener('mouseleave', function() {
+                    const coinIcon = this.querySelector('.coin-icon');
+                    if (coinIcon) {
+                        setTimeout(() => {
+                            coinIcon.style.animation = 'coinSpin 3s linear infinite';
+                        }, 800);
+                    }
+                });
+            });
+
+            // 信息卡片展开动画
+            const infoSections = document.querySelectorAll('.info-section');
+            infoSections.forEach((section, index) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    section.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+
+            // 玩家数量动态更新模拟
+            function updatePlayerCounts() {
+                const playerCountElements = document.querySelectorAll('.player-count');
+                playerCountElements.forEach(element => {
+                    if (element.textContent.includes('10 Players')) {
+                        const randomCount = Math.floor(Math.random() * 20) + 5;
+                        element.innerHTML = `👥 ${randomCount} Players`;
+                    }
+                });
+            }
+
+            // 每10秒更新一次玩家数量
+            setInterval(updatePlayerCounts, 10000);
+
+            // 状态指示器动态变化
+            function updateGameStatus() {
+                const statusIndicators = document.querySelectorAll('.game-status');
+                const statusTexts = document.querySelectorAll('.game-status-text');
+
+                statusIndicators.forEach((indicator, index) => {
+                    if (Math.random() > 0.8) { // 20%概率改变状态
+                        const isHot = Math.random() > 0.5;
+                        indicator.className = 'game-status ' + (isHot ? 'status-hot' : 'status-idle');
+                        if (statusTexts[index]) {
+                            statusTexts[index].textContent = isHot ? 'HOT' : 'IDLE';
+                            statusTexts[index].className = 'game-status-text ' + (isHot ? 'status-hot-text' : 'status-idle-text');
+                        }
+                    }
+                });
+            }
+
+            // 每15秒更新一次状态
+            setInterval(updateGameStatus, 15000);
+        });
+
+        // 添加波纹动画CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: translate(-50%, -50%) scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
